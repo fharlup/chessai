@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chess } from 'chess.js';
 
-// Komponen Papan Catur Custom
+// Komponen Papan Catur Custom - Chess.com Style
 function CustomChessboard({ position }) {
   const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
@@ -42,8 +42,8 @@ function CustomChessboard({ position }) {
     : position);
 
   return (
-    <div className="aspect-square w-full bg-slate-900 p-2 rounded-xl shadow-2xl">
-      <div className="grid grid-cols-8 gap-0 w-full h-full">
+    <div className="w-full aspect-square bg-[#312e2b] p-4 rounded-lg shadow-2xl">
+      <div className="w-full h-full grid grid-cols-8 grid-rows-8 gap-0">
         {ranks.map((rank, rankIdx) => 
           files.map((file, fileIdx) => {
             const isLight = (rankIdx + fileIdx) % 2 === 0;
@@ -55,28 +55,43 @@ function CustomChessboard({ position }) {
                 key={squareName}
                 className={`
                   relative flex items-center justify-center
-                  ${isLight ? 'bg-amber-100' : 'bg-amber-600'}
+                  ${isLight ? 'bg-[#eeeed2]' : 'bg-[#769656]'}
                   transition-all duration-200
                 `}
+                style={{ aspectRatio: '1/1' }}
               >
                 {piece && (
-                  <div className={`
-                    text-5xl select-none transition-all duration-300
-                    ${piece === piece.toUpperCase() ? 'text-white' : 'text-slate-900'}
-                    drop-shadow-lg
-                  `}>
+                  <div 
+                    className={`
+                      select-none transition-all duration-300
+                      ${piece === piece.toUpperCase() ? 'text-white' : 'text-black'}
+                    `}
+                    style={{
+                      fontSize: 'clamp(2rem, 6vw, 4rem)',
+                      lineHeight: 1,
+                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
+                    }}
+                  >
                     {pieceSymbols[piece]}
                   </div>
                 )}
                 
-                {/* Koordinat papan */}
+                {/* Koordinat - Rank (kiri) */}
                 {fileIdx === 0 && (
-                  <div className="absolute left-1 top-1 text-[10px] font-bold opacity-50">
+                  <div className={`
+                    absolute left-1 top-0.5 text-[10px] font-bold
+                    ${isLight ? 'text-[#769656]' : 'text-[#eeeed2]'}
+                  `}>
                     {rank}
                   </div>
                 )}
+                
+                {/* Koordinat - File (bawah) */}
                 {rankIdx === 7 && (
-                  <div className="absolute right-1 bottom-1 text-[10px] font-bold opacity-50">
+                  <div className={`
+                    absolute right-1 bottom-0.5 text-[10px] font-bold
+                    ${isLight ? 'text-[#769656]' : 'text-[#eeeed2]'}
+                  `}>
                     {file}
                   </div>
                 )}

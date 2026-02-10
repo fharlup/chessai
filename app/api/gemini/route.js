@@ -8,12 +8,16 @@ export async function POST(request) {
     const { pgn, white, black } = await request.json();
 
     const prompt = `
-      Analisis catur: ${white} vs ${black}.
+      Analisis strategi catur antara ${white} vs ${black}.
       PGN: "${pgn}"
-      Tugas: Berikan komentar 1 baris untuk SETIAP langkah, review akhir, dan 3 improvement.
-      Output WAJIB JSON:
+      TUGAS:
+      1. Berikan komentar 1 baris (maks 10 kata) untuk SETIAP langkah.
+      2. Berikan review singkat di akhir pertandingan.
+      3. Berikan 3 poin improvement untuk pemain Putih.
+      
+      OUTPUT WAJIB JSON (TANPA TEKS LAIN):
       {
-        "moveComments": [...],
+        "moveComments": ["...", "...", ...],
         "finalReview": "...",
         "improvements": ["...", "...", "..."]
       }
